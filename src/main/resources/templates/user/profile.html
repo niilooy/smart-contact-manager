@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="user/base::Layout(~{::section})">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${title}"></title>
+</head>
+<body>
+<section>
+    <div class="container my-2">
+        <div class="card">
+            <div class="card-body">
+                <!--            alert -message-->
+                <div th:if="${session.msg}" th:classappend="${session.msg.type}" class="alert alert-dismissible fade show text-center" role="alert">
+                    <span th:text="${session.msg.content}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+                </div>
+
+                <div class="d-flex justify-content-center align-items-center my-2">
+                    <img style="height: 13rem; width: 13rem" class="contact__profile_picture" th:src="@{'/images/userProfile/' + ${user.getImageUrl()}}">
+                    <span class="align-self-end"><a data-bs-toggle="modal" data-bs-target="#profilePictureModal" class=" edit-icon fa-solid fa-user-pen"></a></span>
+                </div>
+<!--                profile modal start here-->
+                <div class="modal fade" id="profilePictureModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Upload Profile Picture</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form th:action="@{/user/update-profile-picture}" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="user_id" th:value="${user.getId()}">
+                                    <div class="mb-3">
+                                        <label for="userProfilePicture" class="mobile-font form-label"><span class="mx-2"><i class="bi bi-person-rolodex"></i></span>Profile Picture</label>
+                                        <input class="form-control mobile-font " type="file" id="userProfilePicture" name="userProfilePicture">
+                                    </div>
+                                    <div class="text-center">
+                                        <button class="btn text-light btn-starter">Save changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!--                profile modal end here-->
+                <div class="text-center my-2 me-3">
+                    <h4 class="my-2" th:text="${user.getName()}"></h4>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <table class="w-50 p-3 table text-center">
+                        <thead>
+                        <tr>
+                            <th scope="col">#Id</th>
+                            <th scope="col" th:text="'SCM'+${user.getId()}"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">Email</th>
+                            <td th:text="${user.getEmail()}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Role</th>
+                            <td th:text="${user.getRole()}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">About me</th>
+                            <td th:text="${user.getAbout()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function (){
+            $(".side-bar-item").removeClass("active-link");
+            $("#profile-link").addClass("active-link");
+        })
+    </script>
+</section>
+</body>
+</html>

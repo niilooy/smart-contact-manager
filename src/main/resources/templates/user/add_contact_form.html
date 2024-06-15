@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="user/base::Layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+</head>
+<body>
+<section>
+    <div class="card add-form-card" th:if="${contact}">
+        <div class="card-body">
+<!--            alert -message-->
+            <div th:if="${session.msg}" th:classappend="${session.msg.type}" class="alert alert-dismissible fade show text-center" role="alert">
+                <span th:text="${session.msg.content}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+            </div>
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="text-center my-3">
+                        <h1 class="text-color" th:text="${title_of_page}"></h1>
+                    </div>
+                    <div>
+                        <form th:action="@{'/user/' + ${form_process_url}}" method="post" enctype="multipart/form-data" th:object="${contact}">
+<!--                            Sending contact id -->
+                            <input type="hidden" th:value="${contact.getCId()}" name="cId">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text mobile-font" id="name"><i class="bi bi-person-square"></i></span>
+                                <input type="text" th:classappend="${#fields.hasErrors('name')}?'is-invalid':''" class="form-control mobile-font" placeholder="Enter Name" name="name" aria-label="Username" aria-describedby="name" th:value="${contact.getName()}" required>
+                                <div id="nameValidation" class="invalid-feedback" th:each="e : ${#fields.errors('name')}" th:text="${e}">
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text mobile-font" id="nickName"><i class="bi bi-person-hearts"></i></span>
+                                <input type="text" class="form-control mobile-font" placeholder="Enter nick name" name="nickName" aria-label="nickName" aria-describedby="name" th:value="${contact.getNickName()}" required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text mobile-font" id="email">@</span>
+                                <input type="email" class="form-control mobile-font" placeholder="Enter email" name="email" aria-label="email" th:value="${contact.getEmail()}" aria-describedby="name">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text mobile-font" id="work"><i class="bi bi-briefcase-fill"></i></span>
+                                <input type="text" class="form-control mobile-font" placeholder="Enter work" name="work" th:value="${contact.getWork()}" aria-label="work" aria-describedby="name">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text mobile-font" id="phone"><i class="bi bi-telephone-fill"></i></span>
+                                <input type="text" th:classappend="${#fields.hasErrors('phone')}?'is-invalid':''" class="form-control mobile-font" placeholder="Enter phone number" th:value="${contact.getPhone()}" name="phone" aria-label="phone" aria-describedby="phone" required>
+                                <div id="phoneValidation" class="invalid-feedback" th:each="e : ${#fields.errors('phone')}" th:text="${e}">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="mobile-font form-label">Description</label>
+                                <textarea style="resize: none" name="description" class="form-control mobile-font" th:text="${contact.getDescription()}" id="description" rows="3"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="profilePicture" class="mobile-font form-label"><span class="mx-2"><i class="bi bi-person-rolodex"></i></span>Profile Picture <span class=" mx-2" th:text="${update_profile_picture_msg}"></span></label>
+                                <input class="form-control mobile-font " type="file" id="profilePicture" name="profilePicture">
+                            </div>
+                            <div class="text-center">
+                                <button class="btn btn-outline-info mobile-font my-2">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--    for unauthorized user-->
+    <div class="container my-2" th:unless="${contact}">
+        <div class=" text-center p-3 alert alert-warning" role="alert">
+            <img class="custom_error_icon" th:src="@{/images/warning_icon.png}">
+            <h4 class="alert-heading">unauthorized access!</h4>
+            <p>You do not have permission to access this page.</p>
+            <hr>
+            <a class="btn text-light btn-lg btn-starter" th:href="@{/user/view-contacts/0}">Go Back</a>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function (){
+            $(".side-bar-item").removeClass("active-link");
+            $("#add-link").addClass("active-link");
+        })
+    </script>
+</section>
+</body>
+</html>

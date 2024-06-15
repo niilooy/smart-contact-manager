@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="user/base::Layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+</head>
+<body>
+    <section>
+        <div th:if="${session.msg}" th:classappend="${session.msg.type}" class="alert alert-dismissible fade show text-center" role="alert">
+            <span th:text="${session.msg.content}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+        </div>
+        <div class="dashboard_banner d-flex justify-content-center align-items-center">
+            <div class="text-center">
+                <h1 class="display-3">Welcome to Smart Contact Manager</h1>
+                <p>Start Managing your contact smartly By Start adding to cloud.</p>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function (){
+                $(".side-bar-item").removeClass("active-link");
+                $("#home-link").addClass("active-link");
+            })
+        </script>
+    </div>
+</body>
+</html>

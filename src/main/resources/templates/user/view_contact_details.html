@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="user/base::Layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+</head>
+<body>
+<section>
+    <div class="container my-2">
+        <div class="card" th:if="${contact}">
+            <div class="card-body">
+                <div class="text-center my-2">
+                    <img style="height: 13rem; width: 13rem" class="contact__profile_picture" th:src="@{'/images/profile/' + ${contact.getImage()}}">
+                    <h4 class="my-2" th:text="${contact.getName()} + '(' + ${contact.getNickName() + ')'}"></h4>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <table class="w-50 p-3 table text-center">
+                        <thead>
+                        <tr>
+                            <th scope="col">#Id</th>
+                            <th scope="col" th:text="'SCM'+${contact.getCId()}"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">Email</th>
+                            <td th:text="${contact.getEmail()}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Mobile No</th>
+                            <td th:text="${contact.getPhone()}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Work</th>
+                            <td th:text="${contact.getWork()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center">
+                    <p th:text="${contact.getDescription()}"></p>
+                </div>
+                <div class="text-center">
+                    <a th:href="@{'/user/update-contact/' + ${contact.getCId()}}" class="btn btn-info">Update</a>
+                    <button th:onclick="|deleteContact(${contact.getCId()})|" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+<!--        if contact does not exist-->
+        <div th:unless="${contact}">
+            <div class=" text-center p-3 alert alert-warning" role="alert">
+                <img class="custom_error_icon" th:src="@{/images/warning_icon.png}">
+                <h4 class="alert-heading">unauthorized access!</h4>
+                <p>You do not have permission to access this page.</p>
+                <hr>
+                <a class="btn text-light btn-lg btn-starter" th:href="@{/user/view-contacts/0}">Go Back</a>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

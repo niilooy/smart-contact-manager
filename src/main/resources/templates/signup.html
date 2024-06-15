@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="base::Layout(~{::section})">
+<head>
+  <meta charset="UTF-8">
+  <title>About Page</title>
+</head>
+<body>
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="my-card mt-4">
+          <div th:if="${session.msg}" th:classappend="${session.msg.type}" class="alert alert-dismissible fade show" role="alert">
+            <span th:text="${session.msg.content}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+          </div>
+          <div class="text-center my-1 text-color">
+            <h2>Register Here</h2>
+          </div>
+          <form th:action="@{/register}" method="post" th:object="${user}" class="text-color">
+            <div class="form-floating mb-3">
+              <input type="text" name="name" class="form-control" id="floatingName" placeholder="Your Name" th:value="${user.name}" th:classappend="${#fields.hasErrors('name')}? 'is-invalid':''" required>
+              <label for="floatingName">Name</label>
+              <div id="nameValidation" class="invalid-feedback" th:each="e:${#fields.errors('name')}" th:text="${e}">
+              </div>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="email" name="email" class="form-control" id="floatingEmail" placeholder="name@example.com" th:value="${user.email}" th:classappend="${#fields.hasErrors('email')}? 'is-invalid':''" required>
+              <label for="floatingEmail">Email address</label>
+              <div id="emailValidation" class="invalid-feedback" th:each="e:${#fields.errors('email')}" th:text="${e}">
+              </div>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" th:classappend="${#fields.hasErrors('password')}? 'is-invalid':''" required>
+              <label for="floatingPassword">Password</label>
+              <div id="passwordValidation" class="invalid-feedback" th:each="e:${#fields.errors('password')}" th:text="${e}">
+              </div>
+            </div>
+            <div class="form-floating mb-3">
+              <textarea class="form-control" name="about" placeholder="Tell about yourself" id="floatingTextarea2" th:text="${user.about}" style="height: 100px; resize: none" required></textarea>
+              <label for="floatingTextarea2">About</label>
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" name="agreement" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">I've read and agree to the terms of usage.</label>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-starter btn-md text-light">Submit</button>
+              <button type="submit" class="btn btn-danger">Reset</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

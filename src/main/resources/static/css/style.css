@@ -1,0 +1,331 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /*overflow: hidden;*/
+}
+body{
+    background-color: #ccc;
+}
+
+/* Common Style */
+.text-color{
+    color: #009688;
+}
+.form-control:focus{
+    border-color: #009688;
+}
+.custom_error_icon{
+    width: 40%;
+}
+
+
+/* Common Style end here*/
+
+/*End of Common Style */
+
+/* Nav Bar Style*/
+
+.nav-theme{
+    background-color: #009688;
+}
+
+/* End Nav Bar Style*/
+
+/* Home page Style*/
+
+.banner{
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.8),rgb(0,0,0,0.8)) ,url("../images/banner.jpg") no-repeat;
+    background-size: cover;
+    color: white;
+    position: fixed;
+    overflow: hidden;
+}
+
+.btn-starter{
+    background-color: #009688
+}
+.btn:first-child:hover, :not(.btn-check)+.btn:hover{
+    background-color: #067a70;
+}
+
+/* End Home page Style*/
+
+/*  sign-in page*/
+.my-card{
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 20px;
+}
+/* End  sign-in page*/
+
+
+/*  login page  */
+
+#login .container #login-row #login-column #login-box,
+#forget .container #forget-row #forget-column #forget-box{
+    margin-top: 7.5rem;
+    border: 1px solid #9C9C9C;
+    background-color: white;
+    border-radius: 20px;
+}
+#login .container #login-row #login-column #login-box #login-form,
+#forget .container #forget-row #forget-column #forget-box #forget-form{
+    padding: 20px;
+}
+
+#register-link a,#forget-password-link a{
+    text-decoration: none;
+}
+#register-link a:hover,
+#register-link a:active,
+#forget-password-link a:hover,
+#forget-password-link a:active{
+    color: #067a70;
+}
+
+/*  End of login page  */
+
+/* Dashboard style*/
+
+.dashboard{
+    display: flex;
+}
+.dashboard_banner{
+    width: 78vw;
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.5),rgb(0,0,0,0.5)) ,url("../images/SmartContactManager.jpg") no-repeat;
+    background-size: cover;
+    color: white;
+    overflow: hidden;
+}
+
+
+
+/* Side bar*/
+.side-bar{
+    width: 22%;
+    background-color: white;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    display: block;
+}
+
+.side-bar-items{
+    margin: 1rem 0;
+
+}
+.side-bar-item{
+    list-style: none;
+    padding: 0.5rem;
+    /*margin: 0.5rem;*/
+
+}
+.side-bar-item:hover,
+.side-bar-item:active{
+   background-color: #ccc;
+    cursor: pointer;
+}
+.side-bar-item a{
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: gray;
+}
+.active-link{
+    background: #009688;
+}
+.active-link a{
+    color: white;
+}
+.side-bar-item a:hover,
+.side-bar-item a:active{
+    color: white;
+}
+
+.side-bar__divider{
+    height: 0.05rem;
+    background-color: #ada0a0;
+}
+
+/* Add form */
+.add-form-card{
+    margin: 16px;
+}
+
+.main-content{
+    width: 78%;
+}
+.menu-bar{
+    display: none;
+}
+
+/* search css start here*/
+.search-result{
+    background: white;
+    border: 1px solid #ced4da;
+    width: 100%;
+    padding: 10px;
+    border-radius: 0.375rem;
+    display: none;
+}
+/* search css end here*/
+
+/* Pagination start here */
+.pagination > li > a
+{
+    background-color: white;
+    color: #009688;
+    font-weight: 500;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    color: #009688;
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+.pagination > .active > a
+{
+    color: white;
+    background-color: #067a70;
+    border: solid 1px #067a70;
+}
+
+.pagination > .active > a:hover
+{
+    background-color: #067a70;
+    border: solid 1px #067a70;
+}
+
+/* Pagination End here */
+
+/* contact__profile_picture start here*/
+
+.contact__profile_picture{
+    height: 3rem;
+    width: 3rem;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/*contact__profile_picture end here*/
+
+/* contact_name__link start here*/
+.contact_name__link{
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+}
+.contact_name__link:hover,
+.contact_name__link:active{
+    color: #009688;
+}
+
+/* contact_name__link end here*/
+
+/* edit icon of profile page*/
+
+.edit-icon{
+    text-decoration: none;
+    color:#067a70;
+    cursor: pointer;
+}
+.edit-icon:active,
+.edit-icon:hover{
+    color: #009688;
+}
+
+/* edit icon of profile page*/
+
+
+/* End Dashboard style*/
+
+@media (max-width: 1000px){
+    /* Dashboard style*/
+    .main-content{
+        width: 70%;
+    }
+    .side-bar{
+        width: 30%;
+    }
+    /* End of Dashboard style*/
+}
+
+@media (max-width: 700px) {
+
+    /* Common Style Start*/
+    .custom_error_icon{
+        width: 80%;
+    }
+    /* Common Style End*/
+
+    /* Dashboard style*/
+
+    .dashboard_banner{
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(rgba(0,0,0,0.5),rgb(0,0,0,0.5)) ,url("../images/SmartContactManager.jpg") no-repeat;
+        background-size: cover;
+        color: white;
+        overflow: hidden;
+
+    }
+
+    .backdrop{
+        position: fixed;
+        display: none;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(0, 0, 0,0.5);
+        z-index: 100;
+        top: 0;
+    }
+    .menu-bar{
+        display: block;
+        position: absolute;
+    }
+    .mobile-font{
+        font-size: 1.4rem;
+    }
+    .add-form-card{
+        margin: 8px;
+    }
+
+    .side-bar{
+        width: 75%;
+        display: none;
+        position: sticky;
+        z-index: 101;
+    }
+    .side-bar-items {
+        margin: 2rem 0;
+    }
+    .side-bar-item {
+        margin: 1rem 0;
+    }
+    .side-bar-item a {
+        font-size: 1.4rem;
+    }
+    .main-content{
+        width: 100%;
+    }
+    .menu-bar a{
+        text-decoration: none;
+        color: #009688;
+        font-size: 1.2rem;
+    }
+    .mob_text-center{
+        text-align: center;
+    }
+
+
+
+    /* End Dashboard style*/
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="user/base::Layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+</head>
+<body>
+<section>
+    <div class="container">
+        <div class="card m-2" th:if="${contacts.getTotalPages() != 0}">
+            <div class=" my-2 text-center">
+                <h1 class="text-color" >Your Contacts</h1>
+                <div th:if="${session.msg}" th:classappend="${session.msg.type}" class="mx-2 alert alert-dismissible fade show" role="alert">
+                    <span th:text="${session.msg.content}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+                </div>
+            </div>
+
+            <!--                Search box start here-->
+            <div class=" search-container my-3 px-3">
+                <input onkeyup="search()" type="text" id="search-input" class="form-control" placeholder="Search your contact By Name...">
+
+<!--                search result-->
+                <div class="search-result">
+                </div>
+            </div>
+            <!--                Search box end here-->
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Mobile No</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="align-middle" th:each="c : ${contacts}">
+                            <td class="fw-bold" th:text="'SCM'+${c.getCId()}"></td>
+                            <td class="mob_text-center">
+                                <span class="mx-2"><img class="contact__profile_picture" th:src="@{'/images/profile/' + ${c.getImage()}}"></span>
+                                <a class="contact_name__link" th:href="@{'/user/contact/' + ${c.getCId()}}"><span th:text="${c.getName()}"></span></a>
+                            </td>
+                            <td th:text="${c.getEmail()}"></td>
+                            <td th:text="${c.getPhone()}"></td>
+                            <td class="mob_text-center">
+                                <a th:onclick="|deleteContact(${c.getCId()})|" class="text-danger mx-2" style="cursor: pointer"><i class="fa-solid fa-trash-can"></i></a>
+                                <a th:href="@{'/user/update-contact/' + ${c.getCId()}}" class="text-info" style="cursor: pointer"><i class="fa-sharp fa-solid fa-pencil"></i></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+<!--                    Pagination-->
+                    <div class="d-flex justify-content-center">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li th:classappend="${currentPage == 0}?'disabled':''" class="page-item"><a class="page-link" th:href="@{'/user/view-contacts/'+ ${currentPage - 1}}">Previous</a></li>
+                                <li th:each="i : ${#numbers.sequence(1,totalPage)}" th:classappend="${currentPage+1 == i}?'active':''" class="page-item"><a class="page-link custom-page-link" href="#" th:href="@{'/user/view-contacts/'+${i - 1}}"><span th:text="${i}"></span></a></li>
+                                <li th:classappend="${currentPage+1==totalPage}?'disabled':''" class="page-item"><a class="page-link" th:href="@{'/user/view-contacts/'+ ${currentPage + 1}}">Next</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!--        if contact does not exist-->
+        <div th:unless="${contacts.getTotalPages()!=0}">
+            <div class="text-center">
+                <h2 class="display-3">No Contacts found</h2>
+                <p class="fs-4">Add Your first contact</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function (){
+            $(".side-bar-item").removeClass("active-link");
+            $("#view-link").addClass("active-link");
+        })
+    </script>
+</section>
+</body>
+</html>
